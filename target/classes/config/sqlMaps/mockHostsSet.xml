@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mock_hosts_set">
+
+    <resultMap type="dao.vo.MockParamVO" id="param">
+        <result property="id" column="id" />
+        <result property="mockServiceName" column="mockServiceName" />
+        <result property="mockUrlPath" column="mockUrlPath" />
+        <result property="mockResponse" column="mockResponse" />
+    </resultMap>
+
+    <select id="query"  resultType="java.lang.String" >
+        SELECT hosts_set FROM mock_hosts_set
+    </select>
+
+
+    <insert id="insert" parameterType="java.lang.String">
+        INSERT INTO mock_hosts_set (hosts_set)
+        VALUES(#{hosts_set})
+    </insert>
+
+
+    <update id="update" parameterType="java.lang.String" >
+        UPDATE  mock_hosts_set SET hosts_set = #{hosts_set}
+    </update>
+
+</mapper>

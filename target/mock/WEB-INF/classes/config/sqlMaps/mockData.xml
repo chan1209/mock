@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mock_data">
+
+    <resultMap type="dao.vo.MockParamVO" id="param">
+        <result property="id" column="id" />
+        <result property="mockServiceName" column="mockServiceName" />
+        <result property="mockUrlPath" column="mockUrlPath" />
+        <result property="mockResponse" column="mockResponse" />
+        <result property="mockParams" column="mockParams" />
+    </resultMap>
+
+    <select id="getDateById" parameterType = "int" resultType="dao.vo.MockParamVO" >
+        SELECT id,mockServiceName,mockUrlPath,mockResponse,mockParams,mockParams FROM mock_data WHERE ID = #{id}
+    </select>
+
+    <select id="getDataByMockUrlPath" parameterType = "dao.vo.MockParamVO" resultType="dao.vo.MockParamVO" >
+        SELECT id,mockServiceName,mockUrlPath,mockResponse,mockParams FROM mock_data WHERE mockUrlPath = #{mockUrlPath} ORDER BY id DESC
+    </select>
+
+    <select id="getCountByMockUrlPath" parameterType = "dao.vo.MockParamVO" resultType="int" >
+        SELECT count(*) FROM mock_data WHERE mockUrlPath = #{mockUrlPath}
+    </select>
+
+    <select id="getdatelist" resultType="dao.vo.MockParamVO">
+        SELECT  id,mockServiceName,mockUrlPath,mockResponse,mockParams FROM mock_data ORDER BY id DESC
+    </select>
+
+    <update id="updateDataByPath" parameterType="dao.vo.MockParamVO">
+        UPDATE  mock_data SET mockServiceName = #{mockServiceName},mockResponse= #{mockResponse} WHERE mockUrlPath = #{mockUrlPath}
+    </update>
+
+
+    <insert id="insert" parameterType="dao.vo.MockParamVO"  keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO mock_data (id,mockServiceName,mockUrlPath,mockResponse,mockParams)
+        VALUES(#{id},#{mockServiceName},#{mockUrlPath},#{mockResponse},#{mockParams})
+    </insert>
+
+
+    <delete id="deleteById" parameterType="dao.vo.MockParamVO" >
+        DELETE FROM mock_data where id = #{id}
+    </delete>
+
+</mapper>

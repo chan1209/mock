@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <environments default="mock">
+        <environment id="mock">
+            <transactionManager type="JDBC" />
+            <!-- 配置数据库连接信息 -->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://172.17.53.61:3306/TC_DEV?allowMultiQueries=true" />
+                <property name="username" value="guest01" />
+                <property name="password" value="Guest01" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <!-- sqlmaps -->
+        <mapper resource = "config/sqlMaps/mockData.xml"/>
+
+    </mappers>
+</configuration>
