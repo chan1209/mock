@@ -56,11 +56,12 @@ public class MockServiceAction {
         }
 
         String responseStr = "{}";
+        JSONObject jsonObject = new JSONObject();
         if(mockParamVOs != null){
             for(MockParamVO mockParamVO : mockParamVOs){
                 String params = mockParamVO.getMockParams();
                 responseStr = mockParamVO.getMockResponse();
-                JSONObject jsonObject = JSONObject.parseObject(responseStr);
+                jsonObject = JSONObject.parseObject(responseStr);
                 if (params != null) {
                     //DB mockParams不为空，校验参数再返回
                     JSONObject mockParams = JSONObject.parseObject(params);
@@ -71,25 +72,26 @@ public class MockServiceAction {
                         if(flag1){
                             flag2 = urlMap.get(key).equals(value);
                         }
+
+//                        else if(flag1 && !flag2){
+//                            map.put("status","-1");
+//                            map.put("msg","此参数无对应结果");
+//                            return map;
+                        }
                         if(flag1&&flag2){
                             break;
-                        }else if(flag1 && !flag2){
-                            map.put("status","-1");
-                            map.put("msg","此参数无对应结果");
-                            return map;
                         }
                     }
                 }
                 if(flag1&&flag2){
-                    map = jsonObject;
-                    break;
+                    return jsonObject;
                 }else {
                     map.put("status","-1");
                     map.put("msg","请求参数错误");
                     return map;
                 }
             }
-        }else{
+        else{
             callUrl = callUrl+"?";
             String key = "";
             while(param.hasMoreElements()){
@@ -130,8 +132,10 @@ public class MockServiceAction {
 
 
         return map;
+        }
+
 
     }
 
 
-}
+
